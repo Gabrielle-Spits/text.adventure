@@ -9,10 +9,11 @@ using UnityEngine;
 
 public class myadventure : MonoBehaviour
 {
-    private enum States
+    private enum States //de state soorten 
     {
         start,
         begin,
+        uitleg,
         keuzes_deel1,
         keuze1_deel1,
         keuze2_deel1,
@@ -20,6 +21,7 @@ public class myadventure : MonoBehaviour
         keuze4_deel1,
         deel2,
         deel2_keuze1,
+        deel2_keuze2,
         d2__keuze1_vervolg_keuze,
         d2_k1_vervolg_keuze_1,
         d2_k1_vervolg_keuze_2,
@@ -29,9 +31,12 @@ public class myadventure : MonoBehaviour
         d2_k1_v_k2_v_keuze2,
         d2_k1_v_k2_v_k2_vervolg_keuze,
         d2_k1_v_k2_v_k2_vervolg_keuze1,
+        d2_k1_v_k2_v_k2_vervolg_keuze2,
         d2_k1_v_k2_v_k2_v_k1_vervolg_keuze,
         d2_k1_v_k2_v_k2_v_k1_vervolg_keuze1,
-        d2_k1_v_k2_v_k2_v_k1_vervolg_keuze2
+        d2_k1_v_k2_v_k2_v_k1_vervolg_keuze2,
+        einde
+        
        
         
 
@@ -56,16 +61,16 @@ public class myadventure : MonoBehaviour
 
     void OnUserInput(string input) //startmenu
     {
-        if (currentState == States.start) //start
+        if (currentState == States.start) //start + uitleg
         {
 
             if (input == "start")
             {
                 StartIntro();
             }
-            else if (input == "welkom")
+            else if (input == "uitleg")
             {
-                Terminal.WriteLine("cool");
+                Startuitleg();
             }
             else
             {
@@ -73,7 +78,15 @@ public class myadventure : MonoBehaviour
             }
         }
 
-        if (currentState == States.begin) // begin
+        if (currentState == States.uitleg)
+        {
+            if (input == "start")
+            {
+                StartIntro();
+            }
+        }
+
+        if (currentState == States.begin) // begin hier start het begin
         {
             if (input == "Verder" || input == "verder" || input == "VERDER")
             {
@@ -85,7 +98,7 @@ public class myadventure : MonoBehaviour
             }
         }
 
-        if (currentState == States.keuzes_deel1)
+        if (currentState == States.keuzes_deel1) // hier komt de eerste keuze met if en if else dat je naar twee verschiilende states kunt gaan
         {
             if (input == "Kijken")
             {
@@ -118,7 +131,7 @@ public class myadventure : MonoBehaviour
             }
         }
 
-        if (currentState == States.keuze1_deel1) //dood 1
+        if (currentState == States.keuze1_deel1) //dood 1 hier krijg je je eerste dood
         {
             if (input == "start")
             {
@@ -149,7 +162,7 @@ public class myadventure : MonoBehaviour
             }
         }
 
-        if (currentState == States.keuze3_deel1) //dood
+        if (currentState == States.keuze3_deel1) //dood hier ga je terug naar start
         {
             if (input == "start")
             {
@@ -165,7 +178,7 @@ public class myadventure : MonoBehaviour
             }
         }
 
-        if (currentState == States.keuze4_deel1)
+        if (currentState == States.keuze4_deel1) //keuze 4
         {
             if (input == "verder")
             {
@@ -174,15 +187,30 @@ public class myadventure : MonoBehaviour
 
         }
 
-        if (currentState == States.deel2) // mee bezig
+        if (currentState == States.deel2) //
         {
             if (input == "onderdak")
             {
                 Startdeel2_keuze1();
             }
+            
+            else if (input == "mes")
+            {
+                Startdeel2_keuze2();
+            }
+                
         }
 
-        if (currentState == States.deel2_keuze1)
+        if (currentState == States.deel2_keuze2)
+        {
+            if (input == "start")
+            {
+                StartIntro();
+            }
+            
+        }
+
+        if (currentState == States.deel2_keuze1) // na eten mee verder
         {
             if (input == "verder")
             {
@@ -266,9 +294,22 @@ public class myadventure : MonoBehaviour
                 {
                     Startd2_k1_v_k2_v_k2_vervolg_keuze1();
                 }
+                
+                else if (input == "niet")
+                {
+                    Startd2_k1_v_k2_v_k2_vervolg_keuze2();
+                }
             }
         }
 
+        if (currentState == States.d2_k1_v_k2_v_k2_vervolg_keuze2)
+        {
+            if (input == "start")
+            {
+                StartIntro();
+            }
+                
+        }
         if (currentState == States.d2_k1_v_k2_v_k2_vervolg_keuze1)
         {
             {
@@ -305,21 +346,53 @@ public class myadventure : MonoBehaviour
             }
                 
         }
-        
+
+        if (currentState == States.d2_k1_v_k2_v_k2_v_k1_vervolg_keuze2)
+        {
+            {
+                if (input == "verder")
+                {
+                    Starteinde();
+                }
+            }
+        }
+
+        if (currentState == States.einde)
+        {
+            {
+                if (input == "start")
+                {
+                    ShowMainmenu();
+                }
+                
+            }
+            
+        }
         
         
     }
 
-    void ShowMainmenu()
+    void ShowMainmenu()     //hier zie je het menu
     {
-        Terminal.WriteLine("welkom bij smile");
-        Terminal.WriteLine("hierbij maak je kennis met smiles");
+        Terminal.ClearScreen();
+        Terminal.WriteLine("welkom bij mijn game");
+        Terminal.WriteLine("het gaat over een dorpsgek");
         Terminal.WriteLine("type start om te beginnen");
+        Terminal.WriteLine("type uitleg voor uitleg");
 
 
     }
 
-    void StartIntro()
+    void Startuitleg()
+    {
+        currentState = States.uitleg; // dit is voor de uitleg
+        Terminal.ClearScreen();
+        Terminal.WriteLine("je wordt continu aangevallen door de dorpsgek");
+        Terminal.WriteLine("het is de bedoeling dat je de goede ");
+        Terminal.WriteLine("keuzes maakt zodat jij hem kunt doden");
+        Terminal.WriteLine("type start om te beginnen");
+    }
+    void StartIntro()    //start begin
     {
         currentState = States.begin;
         Terminal.ClearScreen();
@@ -328,9 +401,9 @@ public class myadventure : MonoBehaviour
     }
 
 
-    void Startdeel1()
+    void Startdeel1()  //start keuzez
     {
-        currentState = States.keuzes_deel1;
+        currentState = States.keuzes_deel1; 
         Terminal.ClearScreen();
         Terminal.WriteLine("je loopt door een dorp");
         Terminal.WriteLine("je hoort een raar geluid");
@@ -341,7 +414,7 @@ public class myadventure : MonoBehaviour
 
     }
 
-    void Startkeuze1()
+    void Startkeuze1()  //start keuze 1
     {
         currentState = States.keuze1_deel1;
         Terminal.ClearScreen();
@@ -354,7 +427,7 @@ public class myadventure : MonoBehaviour
         Terminal.WriteLine("type start om opnieuw te beginnen");
     }
 
-    void Startkeuze2()
+    void Startkeuze2() //start keuze 2 plus keuze 3
     {
         currentState = States.keuze2_deel1;
         Terminal.ClearScreen();
@@ -370,7 +443,7 @@ public class myadventure : MonoBehaviour
 
     }
 
-    void Startkeuze3()
+    void Startkeuze3() // keuze 3 optie 1
     {
         currentState = States.keuze3_deel1;
         Terminal.ClearScreen();
@@ -381,7 +454,7 @@ public class myadventure : MonoBehaviour
         Terminal.WriteLine("type start om opnieuw te beginnen");
     }
 
-    void Startkeuze4()
+    void Startkeuze4() //keuze 4 optie 2
     {
         currentState = States.keuze4_deel1;
         Terminal.ClearScreen();
@@ -392,7 +465,7 @@ public class myadventure : MonoBehaviour
 
     }
 
-    void Startdeel2()
+    void Startdeel2() //start tweede deel game plus keuze
     {
         currentState = States.deel2;
         Terminal.ClearScreen();
@@ -416,7 +489,18 @@ public class myadventure : MonoBehaviour
         Terminal.WriteLine("type verder");
     }
 
-     void Startd2_keuze1_vervolg_keuze()
+     void Startdeel2_keuze2() // keuze mes
+     {
+         currentState = States.deel2_keuze2;
+         Terminal.ClearScreen();
+         Terminal.WriteLine("je heb gekozen voor het mes");
+         Terminal.WriteLine("je loopt verder");
+         Terminal.WriteLine("je hoort geritsel");
+         Terminal.WriteLine("de dorpsgek vermoord je");
+         Terminal.WriteLine("type start om opnieuw te beginnen");
+     }
+
+     void Startd2_keuze1_vervolg_keuze() //vervolg keuze onderdak
      {
          currentState = States.d2__keuze1_vervolg_keuze;
          Terminal.ClearScreen();
@@ -426,7 +510,7 @@ public class myadventure : MonoBehaviour
          Terminal.WriteLine("als je weg wilt type je weg");
      }
 
-     void Startd2_k1_vervolg_keuze_1() //blijven
+     void Startd2_k1_vervolg_keuze_1() //blijven + dood
      {
          currentState = States.d2_k1_vervolg_keuze_1;
          Terminal.ClearScreen();
@@ -450,7 +534,7 @@ public class myadventure : MonoBehaviour
          Terminal.WriteLine("type verder");
      }
 
-     void Startd2_k1_v_keuze_2_vervolg()
+     void Startd2_k1_v_keuze_2_vervolg() //vervolg
      {
          currentState = States.d2_k1_v_keuze_2_vervolg;
          Terminal.ClearScreen();
@@ -460,7 +544,7 @@ public class myadventure : MonoBehaviour
          Terminal.WriteLine("type verder");
      }
 
-     void Startd2_k1_v_k2_vevolg_keuze()
+     void Startd2_k1_v_k2_vevolg_keuze() //vervolg keuze
      {
          currentState = States.d2_k1_v_k2_vevolg_keuze;
          Terminal.ClearScreen();
@@ -470,7 +554,7 @@ public class myadventure : MonoBehaviour
          Terminal.WriteLine("of als je verder wilt type dan zoeken");
      }
 
-     void Startd2_k1_v_k2_v_keuze1()
+     void Startd2_k1_v_k2_v_keuze1() //vervolg keuze 1
      {
          currentState = States.d2_k1_v_k2_v_keuze1;
          Terminal.ClearScreen();
@@ -480,7 +564,7 @@ public class myadventure : MonoBehaviour
          Terminal.WriteLine("type start om overnieuw te beginnen");
      }
 
-     void Startd2_k1_v_k2_v_keuze2()
+     void Startd2_k1_v_k2_v_keuze2() //vervolg keuze 2
      {
          currentState = States.d2_k1_v_k2_v_keuze2;
          Terminal.ClearScreen();
@@ -488,7 +572,7 @@ public class myadventure : MonoBehaviour
          Terminal.WriteLine("type verder");
      }
 
-     void Startd2_k1_v_k2_v_k2_vervolg_keuze()
+     void Startd2_k1_v_k2_v_k2_vervolg_keuze() //vervolg keuze
      {
          currentState = States.d2_k1_v_k2_v_k2_vervolg_keuze;
          Terminal.ClearScreen();
@@ -510,8 +594,16 @@ public class myadventure : MonoBehaviour
          Terminal.WriteLine("dus type keuze");
      }
 
+     void Startd2_k1_v_k2_v_k2_vervolg_keuze2() //niet +dood
+     {
+         currentState = States.d2_k1_v_k2_v_k2_vervolg_keuze2;
+         Terminal.ClearScreen();
+         Terminal.WriteLine("de dorpsgek slaat je neer");
+         Terminal.WriteLine("type start om opnieuw te beginnen");
+     }
+
     
-     void Startd2_k1_v_k2_v_k2_v_k1_vervolg_keuze()
+     void Startd2_k1_v_k2_v_k2_v_k1_vervolg_keuze() // vervolg keuze
      {
          currentState = States.d2_k1_v_k2_v_k2_v_k1_vervolg_keuze;
          Terminal.ClearScreen();
@@ -535,14 +627,26 @@ public class myadventure : MonoBehaviour
          Terminal.WriteLine("type opnieuw om opnieuw te proberen");
      }
 
-     void Startd2_k1_v_k2_v_k2_v_k1_vervolg_keuze2()
+     void Startd2_k1_v_k2_v_k2_v_k1_vervolg_keuze2() //wapens
      {
          currentState = States.d2_k1_v_k2_v_k2_v_k1_vervolg_keuze2;
          Terminal.ClearScreen();
          Terminal.WriteLine("je kiest voor de wapens");
          Terminal.WriteLine("je leid dan wel honger");
-         Terminal.WriteLine("maar je wilt de dorpsgek doden");
+         Terminal.WriteLine("maar jij wilt de dorpsgek doden");
+         Terminal.WriteLine("Je ziet hem sluipt naar hem toe");
+         Terminal.WriteLine("type verder");
      }
+
+     void Starteinde() //einde +hoofdmeny
+     {
+         currentState = States.einde;
+         Terminal.ClearScreen();
+         Terminal.WriteLine("en steekt hem neer");
+         Terminal.WriteLine("hij is dood dus jij heb gewonnen");
+         Terminal.WriteLine("type start voor het menu ");
+     }
+
 }
 
     

@@ -523,7 +523,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   connectedToTerminal: {fileID: 114578242904794280}
-  charactersWide: 40
+  charactersWide: 80
   charactersHigh: 12
 --- !u!1 &1925257292589310
 GameObject:
