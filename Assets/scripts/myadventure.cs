@@ -61,7 +61,13 @@ public class myadventure : MonoBehaviour
 
     void OnUserInput(string input) //startmenu
     {
-        if (currentState == States.start) //start + uitleg
+        /*
+         * hier krijg de keuze tussen start
+         *en krijg je uitleg
+         * ik heb bij alle keuzes verschillende if en else gebruikt
+         *zodat je naar verschillende states gaat
+         */
+        if (currentState == States.start) //hiermee controleer je in welke state je zit
         {
 
             if (input == "start")
@@ -131,7 +137,7 @@ public class myadventure : MonoBehaviour
             }
         }
 
-        if (currentState == States.keuze1_deel1) //dood 1 hier krijg je je eerste dood
+        if (currentState == States.keuze1_deel1) //dood 1 hier krijg je je eerste dood en kan je terug naar start
         {
             if (input == "start")
             {
@@ -187,7 +193,7 @@ public class myadventure : MonoBehaviour
 
         }
 
-        if (currentState == States.deel2) //
+        if (currentState == States.deel2) //hieer krijg je weer een keuze om deel 2 te starten
         {
             if (input == "onderdak")
             {
@@ -201,7 +207,7 @@ public class myadventure : MonoBehaviour
                 
         }
 
-        if (currentState == States.deel2_keuze2)
+        if (currentState == States.deel2_keuze2) 
         {
             if (input == "start")
             {
@@ -218,7 +224,7 @@ public class myadventure : MonoBehaviour
             }
         }
 
-        if (currentState == States.d2__keuze1_vervolg_keuze)
+        if (currentState == States.d2__keuze1_vervolg_keuze) //dit is de vervolg keuze hiermee kun je verdr
         {
             if (input == "blijven")
             {
@@ -230,7 +236,7 @@ public class myadventure : MonoBehaviour
             }
         }
         
-        if (currentState == States.d2_k1_vervolg_keuze_1)
+        if (currentState == States.d2_k1_vervolg_keuze_1) //weer een keuze dood dus terug naar start
         {
             if (input == "start")
             {
@@ -238,7 +244,7 @@ public class myadventure : MonoBehaviour
             }
         }
 
-        if (currentState == States.d2_k1_vervolg_keuze_2)
+        if (currentState == States.d2_k1_vervolg_keuze_2) //hier kun je weer verder
         {
             if (input == "verder")
             {
@@ -246,7 +252,7 @@ public class myadventure : MonoBehaviour
             }
         }
 
-        if (currentState == States.d2_k1_v_keuze_2_vervolg)
+        if (currentState == States.d2_k1_v_keuze_2_vervolg) //hiermee moet je weer verder
         {
             if (input == "verder")
             {
@@ -254,7 +260,7 @@ public class myadventure : MonoBehaviour
             }
         }
 
-        if (currentState == States.d2_k1_v_k2_vevolg_keuze)
+        if (currentState == States.d2_k1_v_k2_vevolg_keuze) //weer een keuze
         {
             if (input == "eten")
             {
@@ -268,7 +274,7 @@ public class myadventure : MonoBehaviour
             
         }
 
-        if (currentState == States.d2_k1_v_k2_v_keuze1)
+        if (currentState == States.d2_k1_v_k2_v_keuze1) //dood terug naar start
         {
             if (input == "start")
             {
@@ -277,7 +283,7 @@ public class myadventure : MonoBehaviour
             
         }
         
-        if (currentState == States.d2_k1_v_k2_v_keuze2)
+        if (currentState == States.d2_k1_v_k2_v_keuze2) //verder
         {
             {
                 if (input == "verder")
@@ -287,7 +293,7 @@ public class myadventure : MonoBehaviour
             }
         }
 
-        if (currentState == States.d2_k1_v_k2_v_k2_vervolg_keuze)
+        if (currentState == States.d2_k1_v_k2_v_k2_vervolg_keuze) //vervolg keuze
         {
             {
                 if (input == "kijken")
@@ -302,7 +308,7 @@ public class myadventure : MonoBehaviour
             }
         }
 
-        if (currentState == States.d2_k1_v_k2_v_k2_vervolg_keuze2)
+        if (currentState == States.d2_k1_v_k2_v_k2_vervolg_keuze2) // weer een dood terug naar start 
         {
             if (input == "start")
             {
@@ -310,7 +316,7 @@ public class myadventure : MonoBehaviour
             }
                 
         }
-        if (currentState == States.d2_k1_v_k2_v_k2_vervolg_keuze1)
+        if (currentState == States.d2_k1_v_k2_v_k2_vervolg_keuze1) // bij de volgende kun je kieze uit de keuzes
         {
             {
                 if (input == "keuze")
@@ -321,7 +327,7 @@ public class myadventure : MonoBehaviour
         }
 
         
-        if (currentState == States.d2_k1_v_k2_v_k2_v_k1_vervolg_keuze)
+        if (currentState == States.d2_k1_v_k2_v_k2_v_k1_vervolg_keuze) //hier krijg je die keuzes
         {
             {
                 if (input == "eten")
@@ -336,7 +342,7 @@ public class myadventure : MonoBehaviour
             }
         }
 
-        if (currentState == States.d2_k1_v_k2_v_k2_v_k1_vervolg_keuze1)
+        if (currentState == States.d2_k1_v_k2_v_k2_v_k1_vervolg_keuze1) //dood
         {
             {
                 if (input == "opnieuw")
@@ -347,7 +353,7 @@ public class myadventure : MonoBehaviour
                 
         }
 
-        if (currentState == States.d2_k1_v_k2_v_k2_v_k1_vervolg_keuze2)
+        if (currentState == States.d2_k1_v_k2_v_k2_v_k1_vervolg_keuze2) // verder met keuze
         {
             {
                 if (input == "verder")
@@ -357,7 +363,7 @@ public class myadventure : MonoBehaviour
             }
         }
 
-        if (currentState == States.einde)
+        if (currentState == States.einde) //einde terug naar einde
         {
             {
                 if (input == "start")
